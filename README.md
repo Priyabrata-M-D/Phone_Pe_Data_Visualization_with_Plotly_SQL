@@ -28,8 +28,10 @@ The following options are available for user selection:
 5. Explore the data insights and visualizations for the selected option.
 
 ## Code
-
-The `finalapp.py` file contains the code for the Streamlit app, including the dropdown menu and the Plotly figures for each option.
+1. Remember to change path (replace 'path' with your own specified path and check 'sql user' and 'password' before running 'finalapp.py'
+2. 'dataframes.py' contains the code for clone phonepepulse data repo to your local machine.
+3. 'sqlconn.py' contains the code for connect to your sql database and upload dataframes to it.
+4. `finalapp.py` file contains the code for the Streamlit app, including the dropdown menu and the Plotly figures for each option.
 
 ## Data
 
