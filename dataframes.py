@@ -2,12 +2,12 @@ import git, os, json
 import pandas as pd
 
 # Cloneing the PhonePe Pulse repository
-git.Git('C:\\Users\\Priyabrata\\OneDrive\\Desktop\\Repository\\Project2').clone('https://github.com/PhonePe/pulse.git')
+git.Git('path').clone('https://github.com/PhonePe/pulse.git')
 
 # Getting Data as Dataframes for Agg_Trans
 # This is to direct the path to get the data of Agg_Tran
 
-path = "C:\\Users\\Priyabrata\\OneDrive\\Desktop\\Repository\\Project2\\pulse\\data\\aggregated\\transaction\\country\\india\\state\\"
+path = "path\\pulse\\data\\aggregated\\transaction\\country\\india\\state\\"
 Agg_state_list = os.listdir(path)
 Agg_state_list
 clm = {'State': [], 'Year': [], 'Quater': [], 'Transaction_type': [], 'Transaction_count': [], 'Transaction_amount': []}
@@ -34,7 +34,7 @@ for i in Agg_state_list:
 Agg_Trans = pd.DataFrame(clm)
 
 # Getting Data as Dataframes for Top_Trans
-path = "C:\\Users\\Priyabrata\\OneDrive\\Desktop\\Repository\\Project2\\pulse\\data\\top\\transaction\\country\\india\\state\\"
+path = "path\\pulse\\data\\top\\transaction\\country\\india\\state\\"
 Top_state_list = os.listdir(path)
 Top_state_list
 clm = {'State': [], 'Year': [], 'Quater': [], 'District_name': [], 'Transaction_count': [], 'Transaction_amount': []}
@@ -62,7 +62,7 @@ Top_Trans = pd.DataFrame(clm)
 
 # Getting Data as Dataframes for Map_Trans
 # Similarly Map_Trans
-path = "C:\\Users\\Priyabrata\\OneDrive\\Desktop\\Repository\\Project2\\pulse\\data\\map\\transaction\\hover\\country\\india\\state\\"
+path = "path\\pulse\\data\\map\\transaction\\hover\\country\\india\\state\\"
 Map_state_list = os.listdir(path)
 Map_state_list
 clm = {'State': [], 'Year': [], 'Quater': [], 'District_name': [], 'Transaction_count': [], 'Transaction_amount': []}
@@ -90,7 +90,7 @@ Map_Trans = pd.DataFrame(clm)
 
 # Getting Data as Dataframes for Agg_User
 # Similarly Agg_user
-path = "C:\\Users\\Priyabrata\\OneDrive\\Desktop\\Repository\\Project2\\pulse\\data\\aggregated\\user\\country\\india\\state\\"
+path = "path\\pulse\\data\\aggregated\\user\\country\\india\\state\\"
 Agg_state_list = os.listdir(path)
 Agg_state_list
 clm = {'State': [], 'Year': [], 'Quater': [], 'Device_Brand': [],
@@ -125,7 +125,7 @@ Agg_User.info()
 # Getting Data as Dataframes for Top_User
 
 # Similarly Top_User
-path = "C:\\Users\\Priyabrata\\OneDrive\\Desktop\\Repository\\Project2\\pulse\\data\\top\\user\\country\\india\\state\\"
+path = "path\\pulse\\data\\top\\user\\country\\india\\state\\"
 
 Top_state_list = os.listdir(path)
 Top_state_list
@@ -158,7 +158,7 @@ Top_User = pd.DataFrame(clm)
 
 # Getting Data as Dataframes for Map_User
 # Similarly Map_User
-path = "C:\\Users\\Priyabrata\\OneDrive\\Desktop\\Repository\\Project2\\pulse\\data\\map\\user\\hover\\country\\india\\state\\"
+path = "path\\pulse\\data\\map\\user\\hover\\country\\india\\state\\"
 Map_state_list = os.listdir(path)
 Map_state_list
 
