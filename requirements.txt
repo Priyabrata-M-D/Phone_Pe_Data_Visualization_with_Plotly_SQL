@@ -1,0 +1,6 @@
+pandas~=1.5.2
+streamlit~=1.20.0
+SQLAlchemy~=2.0.9
+mysql-connector-python~=8.0.32
+plotly~=5.13.1
+GitPython~=3.1.31
