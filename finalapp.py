@@ -11,17 +11,14 @@ warnings.filterwarnings("ignore")
 st. set_page_config(layout="wide")
 
 # DATASETS
-Data_Aggregated_Transaction_df = pd.read_csv(
-    r'C:\Users\Priyabrata\Desktop\Pulse2project\Data\Agg_Trans_Table.csv')
-Data_Aggregated_User_Summary_df = pd.read_csv(
-    r'C:\Users\Priyabrata\Desktop\Pulse2project\Data\Agg_User_Summary_Table.csv')
-Data_Aggregated_User_df = pd.read_csv(r'C:\Users\Priyabrata\Desktop\Pulse2project\Data\Agg_User_Table.csv')
-Scatter_Geo_Dataset = pd.read_csv(
-    r'C:\Users\Priyabrata\Desktop\Pulse2project\Data\Map_Districts_Longitude_Latitude.csv')
-Coropleth_Dataset = pd.read_csv(r'C:\Users\Priyabrata\Desktop\Pulse2project\Data\Map_IndiaStates_TU.csv')
-Data_Map_Transaction_df = pd.read_csv(r'C:\Users\Priyabrata\Desktop\Pulse2project\Data\Map_Transaction_Table.csv')
-Data_Map_User_Table = pd.read_csv(r'C:\Users\Priyabrata\Desktop\Pulse2project\Data\Map_User_Table.csv')
-Indian_States = pd.read_csv(r'C:\Users\Priyabrata\Desktop\Pulse2project\Data\Longitude_Latitude_State_Table.csv')
+Data_Aggregated_Transaction_df = pd.read_csv(r'Data/Agg_Trans_Table.csv')
+Data_Aggregated_User_Summary_df = pd.read_csv(r'Data/Agg_User_Summary_Table.csv')
+Data_Aggregated_User_df = pd.read_csv(r'Data/Agg_User_Table.csv')
+Scatter_Geo_Dataset = pd.read_csv(r'Data/Map_Districts_Longitude_Latitude.csv')
+Coropleth_Dataset = pd.read_csv(r'Data/Map_IndiaStates_TU.csv')
+Data_Map_Transaction_df = pd.read_csv(r'Data/Map_Transaction_Table.csv')
+Data_Map_User_Table = pd.read_csv(r'Data/Map_User_Table.csv')
+Indian_States = pd.read_csv(r'Data/Longitude_Latitude_State_Table.csv')
 colT1, colT2 = st.columns([2, 8])
 with colT2:
     st.title(':red[PhonePe Pulse Data Analysis:signal_strength:]')
