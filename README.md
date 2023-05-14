@@ -1,23 +1,6 @@
 # PhonePe Pulse Dashboard
 
-This repository contains code for a PhonePe Pulse Dashboard, which allows users to select from a range of options to explore data insights and visualizations related to PhonePe transactions and users.
-
-## Dropdown Options
-
-The following options are available for user selection:
-
-- Transaction Type by Year and Quarter
-- District-level Analysis of Transactions
-- Insights on Transaction Count and Amount by State in India
-- Quarterly Transaction Amount Trends in India
-- Quarterly Transaction Count Trends in India
-- Top Registered Users by State
-- Device Brand Loyalty Over Time
-- PhonePe User Adoption over Year and across States
-- Device Brands Popularity Among PhonePe Users
-- Registered Users Over Time
-- State-level Analysis of Registered Users
-- State-wise App Engagement: A deep dive into App Opened data
+This repository contains code for a PhonePe Pulse Dashboard (Repo: (https://github.com/PhonePe/pulse), which allows users to select from a range of options to explore data insights and visualizations related to PhonePe transactions and users from 2018-2022 for every state in India.
 
 ## How to Use
 1. Install python 3.x and pycharm 2022.x in your system (if installed already ignore the step)
@@ -27,11 +10,54 @@ The following options are available for user selection:
 4. Use the dropdown menu to select one of the available options.
 5. Explore the data insights and visualizations for the selected option.
 
+## Options (Regarding Available Graphs)
+
+The following options are available for user selection:
+
+1 GEO-VISUALIZATION
+
+    1  Plotlys scatter_geo for plotting districts along with the conent
+    2 Plotlys coropleth for drawing the states in India map 
+    
+2 TRANSACTIONS ANALYSIS
+
+    1 State-wise study
+      The above bar graph shows the increasing order of PhonePe Transactions according to the states of India, Here we can observe the top states with the highest Transaction by looking at graph
+
+    2 District-wise study
+      User can observe how transactions are happening in districts of a selected state.We can observe the leading distric in a state
+
+    3 Year-wise study   
+      We can observe the states with total transactions in particular mode in the selected year
+
+    4 Overall Analysis
+    To show how the transactions drastically increased with time
+
+3 USERS ANALYSIS
+
+    1 State-wise study
+      User can observe how the App Openings are growing and how Registered users are growing in a state
+
+    2 District-wise study
+      User can observe how App Openings are happening in districts of a selected state
+
+    3 Year-wise study   
+      User can observe the top leading brands in a particular state in given year
+
+    4 Overall Analysis
+      We can see that the Registered Users and App openings are increasing year by year
+
+4 TOP STATES DATA
+
+    1 States with top Registered users
+    2 States with top Total Amount Transacted
+    3 States with highest Trabsactions count
+    4 States with top app openings
+
 ## Code
 1. Remember to change path (replace 'path' with your own specified path and check 'sql user' and 'password' before running 'finalapp.py'
-2. 'dataframes.py' contains the code for clone phonepepulse data repo to your local machine.
-3. 'sqlconn.py' contains the code for connect to your sql database and upload dataframes to it.
-4. `finalapp.py` file contains the code for the Streamlit app, including the dropdown menu and the Plotly figures for each option.
+2. 'Extraction_to_sql.ipynb' contains the code for extraction of data, connection to your sql database and upload dataframes to it
+3. `finalapp.py` file contains the code for the Streamlit app, including the dropdown menu and the Plotly figures for each option.
 
 ## Data
 
