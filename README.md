@@ -1,7 +1,7 @@
 # PhonePe Pulse Dashboard
 
 ## App Link : https://priyabrata-m-d-phone-pe-data-visualization-with-finalapp-0ipr3j.streamlit.app/
-## App Video :
+## App Video : https://www.linkedin.com/posts/priyabrata01_phonepedatavisualization-plotly-datainsights-activity-7065181593836879873-6fRz?utm_source=share&utm_medium=member_desktop
 This repository contains code for a PhonePe Pulse Dashboard which allows users to select from a range of options to explore data insights and visualizations related to PhonePe transactions and users from 2018-2022 for every state in India.
 
 ## How to Use
