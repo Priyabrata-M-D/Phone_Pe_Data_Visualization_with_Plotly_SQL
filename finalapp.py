@@ -1,4 +1,7 @@
-import git, json, os, warnings
+import git
+import json
+import os
+import warnings
 from os import walk
 from pathlib import Path
 import pandas as pd
@@ -6,7 +9,9 @@ import plotly.express as px
 import streamlit as st
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
-
+import mysql.connector
+from sqlalchemy import create_engine
+#from dataframes import Data_Aggregated_Transaction_df, Data_Aggregated_User_Summary_df, Data_Aggregated_User_df, Data_Map_Transaction_df, Data_Map_User_Table, Indian_States, Scatter_Geo_Dataset, Coropleth_Dataset, Data_Aggragated_Transaction_Summary_Table, Data_Top_Transaction_Table, Data_Top_User_Table
 warnings.filterwarnings("ignore")
 st. set_page_config(layout="wide")
 
@@ -118,18 +123,17 @@ with colT2:
     st.info(
         """
     Details of Map:
-    - The darkness of the state color represents the total transactions
-    - The Size of the Circles represents the total transactions dictrict wise
-    - The bigger the Circle the higher the transactions
-    - Hover data will show the details like Total transactions, Total amount
+    - Dark color (State): Represents total transactions
+    - Circle-Size: represents the total transactions (per district)
+    - Hover data : shows the details of Total transactions, Total amount
     """
     )
     st.info(
         """
     Important Observations:
-    - User can observe Transactions of PhonePe in both statewide and Districtwide.
-    - We can clearly see the states with highest transactions in the given year and quarter
-    - We get basic idea about transactions district wide
+    - Transactions in PhonePe can be observed in both state and District.
+    - States with highest transactions in the given year and quarter can be viewed,
+        a general view of transaction in districts  is being conveyed
     """
     )
 # -----------------------------------------------FIGURE2 HIDDEN BARGRAPH------------------------------------------------------------------------
@@ -139,7 +143,7 @@ fig = px.bar(Coropleth_Dataset, x='state', y='Total_Transactions',
              title=str(year)+" Quarter-"+str(quarter))
 with st.expander("See Bar graph for the same data"):
     st.plotly_chart(fig, use_container_width=True)
-    st.info('**:blue[The above bar graph showing the increasing order of PhonePe Transactions according to the states of India, Here we can observe the top states with highest Transaction by looking at graph]**')
+    st.info('**:blue[It can be observed that the top states with highest Transaction by looking at graph]**')
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ TRANSACTIONS ANALYSIS @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
@@ -181,16 +185,15 @@ with tab1:
         st.info(
             """
         Details of BarGraph:
-        - This entire data belongs to state selected by you
-        - X Axis is basically all years with all quarters 
-        - Y Axis represents total transactions in selected mode        
+        - State: selected in dropdown box
+        - X Axis >> all years with all quarters 
+        - Y Axis >> total transactions in selected mode        
         """
         )
         st.info(
             """
         Important Observations:
-        - User can observe the pattern of payment modes in a State 
-        - We get basic idea about which mode of payments are either increasing or decreasing in a state
+        - The pattern of payment modes in a State can be observed in which mode of payments are either increasing or decreasing.
         """
         )
 # =============================================T FIGURE2 DISTRICTS ANALYSIS=============================================
@@ -223,16 +226,15 @@ with tab2:
         st.info(
             """
         Details of BarGraph:
-        - This entire data belongs to state selected by you
-        - X Axis represents the districts of selected state
-        - Y Axis represents total transactions        
+        - State: selected in dropdown box
+        - X Axis >> districts of selected state
+        - Y Axis >> total transactions        
         """
         )
         st.info(
             """
         Important Observations:
-        - User can observe how transactions are happening in districts of a selected state 
-        - We can observe the leading distric in a state 
+        - Observation: Transactions in leading districts of selected state
         """
         )
 # =============================================T FIGURE3 YEAR ANALYSIS===================================================
@@ -267,17 +269,16 @@ with tab3:
         st.info(
             """
         Details of BarGraph:
-        - This entire data belongs to selected Year
-        - X Axis is all the states in increasing order of Total transactions
-        - Y Axis represents total transactions in selected mode        
+        - Year : Selected in Dropdown
+        - X Axis >> Total transactions of all States
+        - Y Axis >> Total transactions in selected mode        
         """
         )
         st.info(
             """
         Important Observations:
-        - We can observe the leading state with highest transactions in particular mode
-        - We get basic idea about regional performance of Phonepe
-        - Depending on the regional performance Phonepe can provide offers to particular place
+        - Leading state with highest transactions in particular mode
+        - Phonepe can provide offers to particular place with the help of Regional performance
         """
         )
 # =============================================T FIGURE4 OVERALL ANALYSIS=============================================
@@ -287,7 +288,6 @@ with tab4:
     years_Table = years.sum()
     del years_Table['Quarter']
     years_Table['year'] = years_List
-    # this data is used in sidebar
     total_trans = years_Table['Total_Transactions_count'].sum()
     fig1 = px.pie(years_Table, values='Total_Transactions_count', names='year',color_discrete_sequence=px.colors.sequential.Viridis, title='TOTAL TRANSACTIONS (2018 TO 2022)')
     col1, col2 = st.columns([0.65, 0.35])
@@ -301,9 +301,9 @@ with tab4:
         st.info(
             """
         Important Observations:
-        - Its very clearly understood that online transactions drasticall increased
-        - Initially in 2018,2019 the transactions are less but with time the online payments are increased at a high scale via PhonePe.
-        - We can clearly see that more than 50% of total Phonepe transactions in india happened are from the year 2022
+        - Sharp increase in online transactions
+        - Initially (in 2018,2019) Transactions are less.
+        - > 50% of total transactions in india happened from 2022
         """
         )
 
@@ -346,17 +346,16 @@ with tab1:
         st.info(
             """
         Details of BarGraph:
-        - user need to select a state 
-        - The X Axis shows both Registered users and App openings 
-        - The Y Axis shows the Percentage of Registered users and App openings
+        - State: Selected By User
+        - X Axis >> both Registered users and App openings 
+        - Y Axis >> Percentage of Registered users and App openings
         """
         )
         st.info(
             """
         Important Observations:
-        - User can observe how the App Openings are growing and how Registered users are growing in a state
-        - We can clearly obseve these two parameters with time
-        - one can observe how user base is growing
+        - App Openings and Registered users are multiplying rapidly with time
+
         """
         )
 # ==================================================U DISTRICT ANALYSIS ====================================================
@@ -400,16 +399,15 @@ with tab2:
             st.info(
                 """
         Details of BarGraph:
-        - This entire data belongs to state selected by you
-        - X Axis represents the districts of selected state
-        - Y Axis represents App Openings       
+        - State: Selected by User
+        - X Axis >> Districts of selected state
+        - Y Axis >> App Openings       
         """
             )
             st.info(
                 """
         Important Observations:
-        - User can observe how App Openings are happening in districts of a selected state 
-        - We can observe the leading distric in a state 
+        - Happenings of App Openings in the districts of the selected state and the leading district as well
         """
             )
 # ==================================================U YEAR ANALYSIS ========================================================
@@ -455,17 +453,16 @@ with tab3:
         st.info(
             """
         Details of Donut Chart:        
-        - Initially we select data by means of State and Year
+        - Initially data are selected by means of State and Year
         - Percentage of registered users is represented with dounut chat through Device Brand
         """
         )
         st.info(
             """
         Important Observations:
-        - User can observe the top leading brands in a particular state
-        - Brands with less users
-        - Brands with high users
-        - Can make app download advices to growing brands
+        - Top leading brands in a particular state
+        - Brands with less and high users
+        - Can suggest to Top Performing brands to download app 
         """
         )
 
@@ -517,7 +514,7 @@ with tab3:
             st.info(
                 """
             Important Observation:
-            -  We can see that the Registered Users and App openings are increasing year by year
+            -  Registered Users and App openings are increasing year by year
             
             """
             )
