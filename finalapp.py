@@ -19,51 +19,51 @@ Coropleth_Dataset = pd.read_csv(r'Data/Map_IndiaStates_TU.csv')
 Data_Map_Transaction_df = pd.read_csv(r'Data/Map_Transaction_Table.csv')
 Data_Map_User_Table = pd.read_csv(r'Data/Map_User_Table.csv')
 Indian_States = pd.read_csv(r'Data/Longitude_Latitude_State_Table.csv')
+
 colT1, colT2 = st.columns([2, 8])
 with colT2:
-    st.title(':red[PhonePe Pulse Data Analysis:signal_strength:]')
-
-#_____________________________________________ Country Analysis _______________________________________________
-
-c1, c2 = st.columns(2)
-with c1:
-    Year = st.selectbox(
-        'Select the Year to proceed',
-        ('2018', '2019', '2020', '2021', '2022'))
-with c2:
-    Quarter = st.selectbox(
-        'Select the Quarter to proceed',
-        ('1', '2', '3', '4'))
-year = int(Year)
-quarter = int(Quarter)
-Transaction_scatter_districts = Data_Map_Transaction_df.loc[(Data_Map_Transaction_df['Year'] == year) & (Data_Map_Transaction_df['Quarter'] == quarter)].copy()
-Transaction_Coropleth_States = Transaction_scatter_districts[Transaction_scatter_districts["State"] == "india"]
-Transaction_scatter_districts.drop(Transaction_scatter_districts.index[(Transaction_scatter_districts["State"] == "india")], axis=0, inplace=True)
+    st.title(':blue[PhonePe Pulse Data Analysis]')
+# Country Analysis
+    c1, c2 = st.columns(2)
+    with c1:
+        Year = st.selectbox('Select the Year to proceed',
+                            ('2018', '2019', '2020', '2021', '2022'))
+    with c2:
+        Quarter = st.selectbox(
+            'Select the Quarter to proceed', ('1', '2', '3', '4'))
+    year = int(Year)
+    quarter = int(Quarter)
+    Transaction_scatter_districts = Data_Map_Transaction_df.loc[(
+        Data_Map_Transaction_df['Year'] == year) & (Data_Map_Transaction_df['Quarter'] == quarter)].copy()
+    Transaction_Coropleth_States = Transaction_scatter_districts[
+        Transaction_scatter_districts["State"] == "india"]
+    Transaction_scatter_districts.drop(Transaction_scatter_districts.index[(
+        Transaction_scatter_districts["State"] == "india")], axis=0, inplace=True)
 
 # Dynamic Scattergeo Data Generation
-Transaction_scatter_districts = Transaction_scatter_districts.sort_values(by=['Place_Name'], ascending=False)
-Scatter_Geo_Dataset = Scatter_Geo_Dataset.sort_values(by=['District'], ascending=False)
-Total_Amount = []
-for i in Transaction_scatter_districts['Total_Amount']:
-    Total_Amount.append(i)
-Scatter_Geo_Dataset['Total_Amount'] = Total_Amount
-Total_Transaction = []
-for i in Transaction_scatter_districts['Total_Transactions_count']:
-    Total_Transaction.append(i)
-Scatter_Geo_Dataset['Total_Transactions'] = Total_Transaction
-Scatter_Geo_Dataset['Year_Quarter'] = str(year)+'-Q'+str(quarter)
-
+    Transaction_scatter_districts = Transaction_scatter_districts.sort_values(by=['Place_Name'], ascending=False)
+    Scatter_Geo_Dataset = Scatter_Geo_Dataset.sort_values(by=['District'], ascending=False)
+    Total_Amount = []
+    for i in Transaction_scatter_districts['Total_Amount']:
+        Total_Amount.append(i)
+    Scatter_Geo_Dataset['Total_Amount'] = Total_Amount
+    Total_Transaction = []
+    for i in Transaction_scatter_districts['Total_Transactions_count']:
+        Total_Transaction.append(i)
+    Scatter_Geo_Dataset['Total_Transactions'] = Total_Transaction
+    Scatter_Geo_Dataset['Year_Quarter'] = str(year)+'-Q'+str(quarter)
+    
 # Dynamic Coropleth
-Coropleth_Dataset = Coropleth_Dataset.sort_values(by=['state'], ascending=False)
-Transaction_Coropleth_States = Transaction_Coropleth_States.sort_values(by=['Place_Name'], ascending=False)
-Total_Amount = []
-for i in Transaction_Coropleth_States['Total_Amount']:
-    Total_Amount.append(i)
-Coropleth_Dataset['Total_Amount'] = Total_Amount
-Total_Transaction = []
-for i in Transaction_Coropleth_States['Total_Transactions_count']:
-    Total_Transaction.append(i)
-Coropleth_Dataset['Total_Transactions'] = Total_Transaction
+    Coropleth_Dataset = Coropleth_Dataset.sort_values(by=['state'], ascending=False)
+    Transaction_Coropleth_States = Transaction_Coropleth_States.sort_values(by=['Place_Name'], ascending=False)
+    Total_Amount = []
+    for i in Transaction_Coropleth_States['Total_Amount']:
+        Total_Amount.append(i)
+    Coropleth_Dataset['Total_Amount'] = Total_Amount
+    Total_Transaction = []
+    for i in Transaction_Coropleth_States['Total_Transactions_count']:
+        Total_Transaction.append(i)
+    Coropleth_Dataset['Total_Transactions'] = Total_Transaction
 
 # -------------------------------------FIGURE1 INDIA MAP------------------------------------------------------------------
 # scatter plotting the states codes
@@ -74,14 +74,7 @@ Indian_States['Total_Amount'] = Coropleth_Dataset['Total_Amount']
 Indian_States['Total_Transactions'] = Coropleth_Dataset['Total_Transactions']
 Indian_States['Year_Quarter'] = str(year)+'-Q'+str(quarter)
 
-fig = px.scatter_geo(Indian_States,
-                     lon=Indian_States['Longitude'],
-                     lat=Indian_States['Latitude'],
-                     text=Indian_States['code'],
-                     hover_name="state",
-                     hover_data=['Total_Amount',
-                                 "Total_Transactions", "Year_Quarter"],
-                     )
+fig = px.scatter_geo(Indian_States,lon=Indian_States['Longitude'],lat=Indian_States['Latitude'],text=Indian_States['code'],hover_name="state",hover_data=['Total_Amount', "Total_Transactions", "Year_Quarter"])
 
 fig.update_traces(marker=dict(color="white", size=0.3))
 fig.update_geos(fitbounds="locations", visible=False)
@@ -150,7 +143,7 @@ with st.expander("See Bar graph for the same data"):
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ TRANSACTIONS ANALYSIS @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-st.write('# :green[TRANSACTIONS ANALYSIS :currency_exchange:]')
+st.write('# :violet[TRANSACTIONS ANALYSIS :cop:]')
 tab1, tab2, tab3, tab4 = st.tabs(
     ["STATE ANALYSIS", "DISTRICT ANALYSIS", "YEAR ANALYSIS", "OVERALL ANALYSIS"])
 # ==================================================T FIGURE1 STATE ANALYSIS=======================================================
@@ -314,11 +307,10 @@ with tab4:
         """
         )
 
-# ========================================================= USER ANALYSIS ====================================================
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ USER ANALYSIS @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 st.write('# :orange[USERS DATA ANALYSIS ]')
 tab1, tab2, tab3, tab4 = st.tabs(["STATE ANALYSIS", "DISTRICT ANALYSIS", "YEAR ANALYSIS", "OVERALL ANALYSIS"])
-
 # =================================================U STATE ANALYSIS ========================================================
 with tab1:
     st.write('### :blue[State & Userbase]')
@@ -529,8 +521,7 @@ with tab3:
             
             """
             )
-
-st.write('# :red[TOP 3 STATES DATA]')
+st.write('# :green[TOP 3 STATES DATA]')
 c1, c2 = st.columns(2)
 with c1:
     Year = st.selectbox(
@@ -554,7 +545,7 @@ y = topst.sum().sort_values(by=['Total_Amount'], ascending=False)
 col1, col2, col3, col4 = st.columns([2.5, 2.5, 2.5, 2.5])
 with col1:
     rt = top_states_r[1:4]
-    st.markdown("#### :orange[Registered Users :bust_in_silhouette:]")
+    st.markdown("#### :orange[Registered Users :man_with_gua_pi_mao:]")
     st.markdown(rt[['State', 'Registered_Users']].style.hide(
         axis="index").to_html(), unsafe_allow_html=True)
 with col2:
@@ -566,5 +557,8 @@ with col3:
     st.markdown("#### :orange[Total Transactions:currency_exchange:]")
     st.write(x[['Total_Transactions_count']][1:4])
 with col4:
-    st.markdown("#### :orange[Total Amount :dollar:]")
+    st.markdown("#### :orange[Total Amount :heavy_dollar_sign:]")
     st.write(y['Total_Amount'][1:4])
+
+st.write(' ')
+st.balloons()
