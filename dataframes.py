@@ -9,7 +9,7 @@ from pathlib import Path
 import pandas as pd
 warnings.filterwarnings("ignore")
 # Cloneing the PhonePe Pulse repository (as it is already cloned so commented out)
-# git.Git('C:\\Users\\Username\\Desktop\\Pulse\\').clone('https://github.com/PhonePe/pulse.git')
+# git.Git(r'C:\Users\Username\Desktop\Pulse\').clone('https://github.com/PhonePe/pulse.git')
 
 # Aggregated Transaction and User Table
 Agg_Trans_Table = pd.DataFrame({})
@@ -32,9 +32,9 @@ def data_func(state, year, quarter, path):
                  'Total Amount': i['paymentInstruments'][0]['amount'], 'Quarter': quarter, 'Year': year, 'State': state}, ignore_index=True)
 
 
-s = r'C:\Users\Priyabrata\Desktop\Pulse2project\pulse\data\aggregated\transaction\country\india\state'
+s = r'path\pulse\data\aggregated\transaction\country\india\state'
 s_p = os.listdir(
-    r'C:\Users\Priyabrata\Desktop\Pulse2project\pulse\data\aggregated\transaction\country\india\state')
+    r'path\pulse\data\aggregated\transaction\country\india\state')
 for i in s_p:
     p = s+'\\'+i
     for j in os.listdir(p):
@@ -69,9 +69,9 @@ def data_func2(state, year, quarter, path):
                  'Quarter': quarter, 'Year': year, 'State': state}, ignore_index=True)
 
 
-s1 = r'C:\Users\Priyabrata\Desktop\Pulse2project\pulse\data\aggregated\user\country\india\state'
+s1 = r'path\pulse\data\aggregated\user\country\india\state'
 s1_p = os.listdir(
-    r'C:\Users\Priyabrata\Desktop\Pulse2project\pulse\data\aggregated\user\country\india\state')
+    r'path\pulse\data\aggregated\user\country\india\state')
 
 for i in s1_p:
     p1 = s1+'\\'+i
@@ -88,7 +88,7 @@ for i in s1_p:
 
 # Map Transaction & User Table
 
-path = "C:\\Users\\Priyabrata\\Desktop\\Pulse2project\\pulse\\data\\map\\transaction\\hover\\country\\india\\state\\"
+path = r"path\pulse\data\map\transaction\hover\country\india\state\"
 Map_state_list = os.listdir(path)
 Map_state_list
 clm = {'District_name': [], 'Transaction_count': [],
@@ -115,7 +115,7 @@ for i in Map_state_list:
                 clm['Quater'].append(int(k.strip('.json')))
 
 
-path='C:\\Users\\Priyabrata\\Desktop\\Pulse2project\\pulse\\data\\map\\user\\hover\\country\\india\\state\\'
+path='path\\pulse\\data\\map\\user\\hover\\country\\india\\state\\'
 Map_state_list = os.listdir(path)
 
 clm = {'District Name': [], 'Registered Users Count': [], 'App Openings': [],  'Quater': [],'Year': [],'State': []}
@@ -142,7 +142,7 @@ for i in Map_state_list:
 
 
 # Top Transaction & User
-path = "C:\\Users\\Priyabrata\\Desktop\\Pulse2project\\pulse\\data\\top\\user\\country\\india\\state\\"
+path = "path\\pulse\\data\\top\\user\\country\\india\\state\\"
 
 Top_state_list = os.listdir(path)
 clm = {'District_name': [], 'Reg_users': [], 'Pincodes': [],
@@ -171,7 +171,7 @@ for i in Top_state_list:
                 clm['Year'].append(j)
                 clm['Quater'].append(int(k.strip('.json')))
 
-path = "C:\\Users\\Priyabrata\\Desktop\\Pulse2project\\pulse\\data\\top\\transaction\\country\\india\\state\\"
+path = "path\\pulse\\data\\top\\transaction\\country\\india\\state\\"
 Top_state_list = os.listdir(path)
 clm = {'District Name': [], 'Transaction count': [],
        'Transaction amount': [],   'Quater': [], 'Year': [], 'State': []}
@@ -202,20 +202,20 @@ Mapp_User_Table = pd.DataFrame(clm)
 Top_User_Table = pd.DataFrame(clm)
 Top_Trans_Table = pd.DataFrame(clm)
 Longitude_Latitude_State_Table = pd.read_csv(
-    'C:\\Users\\Priyabrata\\Desktop\\Pulse2project\\Data\\Longitude_Latitude_State_Table.csv')
+    'path\\Data\\Longitude_Latitude_State_Table.csv')
 Map_Districts_Longitude_Latitude = pd.read_csv(
     'C:\\Users\\Priyabrata\\Desktop\\Pulse2project\\Data\\Map_Districts_Longitude_Latitude.csv')
 Map_IndiaStates_TU=pd.read_csv(
-    'C:\\Users\\Priyabrata\\Desktop\\Pulse2project\\Data\\Map_IndiaStates_TU.csv')
+    'path\\Data\\Map_IndiaStates_TU.csv')
 
 conn = mysql.connector.connect(
-    host='localhost', user='root', password='mysql321')
+    host='localhost', user='root', password='root')
 cursor = conn.cursor()
 cursor.execute("DROP DATABASE IF EXISTS project2")
 print("Database 'project2' dropped successfully.")
 
 conn = mysql.connector.connect(
-    host='localhost', user='root', password='mysql321')
+    host='localhost', user='root', password='root')
 cursor = conn.cursor()
 database_name = 'project2'
 cursor.execute(f"CREATE DATABASE IF NOT EXISTS {database_name}")
@@ -223,7 +223,7 @@ print(f"Database '{database_name}' created successfully.")
 cursor.execute(f"USE {database_name}")
 
 engine = create_engine(
-    'mysql+mysqlconnector://root:mysql321@localhost/project2', echo=False)
+    'mysql+mysqlconnector://root:root@localhost/project2', echo=False)
 Agg_Trans_Table.to_sql('data_Agg_Trans_Table', engine)
 Agg_Trans_Summary_Table.to_sql('data_Agg_Trans_Summary_Table', engine)
 Agg_User_Summary_Table.to_sql('data_Agg_User_Summary_Table', engine)
